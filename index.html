@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💥 ВЗРЫВ ЗВУКА 💥</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      color: #ff0000;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow: hidden;
+    }
+    #btn {
+      padding: 20px 40px;
+      font-size: 28px;
+      background: #ff0000;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: bold;
+      box-shadow: 0 0 30px #ff0000;
+      transition: transform 0.1s;
+      z-index: 10;
+    }
+    #btn:hover {
+      transform: scale(1.05);
+    }
+    #btn:active {
+      transform: scale(0.95);
+    }
+    .hint {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      font-size: 16px;
+      color: #aaa;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.7; }
+      50% { opacity: 1; }
+      100% { opacity: 0.7; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hint">💡 Нажми кнопку — звук включится!</div>
+  <button id="btn">НАЖМИ МЕНЯ — БУДЕТ ЖЁСТКО!</button>
+
+  <script>
+    document.getElementById('btn').addEventListener('click', function() {
+      this.style.display = 'none';
+      const audio = new Audio('https://zvukogram.com/zvuk/38273/');
+      audio.volume = 1.0;
+
+      audio.play().catch(e => {
+        alert('⚠️ Браузер заблокировал звук. Нажми OK, затем нажми кнопку ещё раз.');
+        setTimeout(() => {
+          audio.play().catch(err => {
+            alert('❌ Не получилось. Попробуй разрешить звук в настройках сайта.');
+          });
+        }, 500);
+      });
+
+      audio.onended = () => {
+        audio.remove();
+      };
+    });
+  </script>
+</body>
+</html>
